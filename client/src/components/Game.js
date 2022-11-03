@@ -152,9 +152,9 @@ const Game = () => {
                     winner={winner}
                     newGame={newGame} />
 
-                <Room show={roomModalShow}
+                {user ? <Room show={roomModalShow}
                     onHide={() => setRoomModalShow(false)}
-                    setRoomCode={setRoomCode} />
+                    setRoomCode={setRoomCode} /> : ''}
             </Row>
         </Container>
     );
