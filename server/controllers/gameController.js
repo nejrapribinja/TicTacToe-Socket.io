@@ -28,9 +28,12 @@ exports.joinRoom = async(req,res,next) => {
                 socket.join(roomCode);
             });
     
-            socket.on("play", ({ id, roomCode }) => {
-                console.log(`play at ${id} to ${roomCode}`);
-                socket.broadcast.to(roomCode).emit("updateGame", id);
+            socket.on("play", ({ index, roomCode }) => {
+                console.log(index, roomCode);
+                console.log("server recieved", index);
+                socket.broadcast.to(roomCode).emit("play", index);
+                // console.log(`play at ${id} to ${roomCode}`);
+                // socket.broadcast.to(roomCode).emit("updateGame", id);
             });
     
             socket.on("disconnect", () => {

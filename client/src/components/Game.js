@@ -26,7 +26,7 @@ const Game = () => {
     })
 
     const created = () => {
-        socket.on("play", (index) => {
+        socket.on("play", (index, roomCode) => {
             console.log("Received index", index);
             draw(index, true);
         })
@@ -47,7 +47,7 @@ const Game = () => {
         setTurn(!turn);
 
         if (!drawFromOther) {
-            socket.emit('play', index);
+            socket.emit('play', { index, roomCode });
         }
 
         isOver(squares);
@@ -100,6 +100,7 @@ const Game = () => {
                         'token': localStorage.getItem("token")
                     },
                 })
+                socket.emit("joinRoom", roomCode);
             } catch (err) {
                 console.error(err.message);
             }
