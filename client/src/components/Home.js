@@ -10,12 +10,12 @@ const Home = () => {
             <Row className="d-flex justify-content-center align-items-center text-center box">
             <h1 className='mb-5'>Tic Tac Toe</h1>
                 <Col md={12} className="d-flex justify-content-center align-items-center ">  
-                    <Button variant="warning" className='m-2  d-flex' style={{ fontSize: "50px", padding: "10px" }} onClick={() => navigate('/game')}>
+                    <Button variant="outline-dark" className='m-2  d-flex' style={{ fontSize: "50px", padding: "10px" }} onClick={() => navigate('/game')}>
                     <FaPlay />
                     </Button>
                 </Col>
                 <Col md={12} className="d-flex justify-content-center align-items-center ">  
-                    <Button variant="warning" className='m-2' style={{ fontSize: "30px" }} onClick={() => navigate('/login')}>
+                    <Button variant="outline-dark" className='m-2' style={{ fontSize: "30px" }} onClick={() => navigate('/login')}>
                         Play online  
                     </Button>
                 </Col>

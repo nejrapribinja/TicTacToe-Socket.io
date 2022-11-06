@@ -6,6 +6,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
-router.post("/joinRoom/:room", game.joinRoom);
+router.post("/joinRoom", game.joinRoom);
 
 module.exports = { router };

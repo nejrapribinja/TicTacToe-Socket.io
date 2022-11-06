@@ -8,8 +8,6 @@ require('dotenv').config();
 var io = null;
 
 exports.joinRoom = async(req,res,next) => {
-    const room = req.params;
-    console.log(room)
     if(!io) {
         io = require("socket.io")(req.connection.server, {
             cors: {
@@ -20,7 +18,6 @@ exports.joinRoom = async(req,res,next) => {
     
         io.on('connection', function (socket) {
             // Connection now authenticated to receive further events
-    
             console.log("User Connected");
     
             socket.on("joinRoom", (roomCode) => {
@@ -28,11 +25,9 @@ exports.joinRoom = async(req,res,next) => {
                 socket.join(roomCode);
             });
     
-            socket.on("play", ({ index, roomCode }) => {
-                console.log(index, roomCode);
-                console.log("server recieved", index);
-                socket.broadcast.to(roomCode).emit("play", index);
-                // console.log(`play at ${id} to ${roomCode}`);
+            socket.on("play", ({ id, roomCode }) => {
+                console.log(`play at ${id} to ${roomCode}`);
+                socket.broadcast.to(roomCode).emit("play", ({ id, roomCode }));
                 // socket.broadcast.to(roomCode).emit("updateGame", id);
             });
     

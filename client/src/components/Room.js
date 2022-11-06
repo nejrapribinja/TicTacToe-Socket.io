@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import io from 'socket.io-client';
 
-function Winner(props) {
-    const [roomCodeInput, setRoomCodeInput] = useState(null);
+function Room(props) {
+    const [roomCode, setRoomCodeInput] = useState(null);
     const navigate = useNavigate();
+    const socket = io.connect('http://localhost:5000');
 
     const handleSubmit = () => {
         props.onHide();
-        props.setRoomCode(roomCodeInput);
+        props.setRoomCode(roomCode);
+        
     };
+
+    useEffect(() => {
+        //console.log(roomCode);
+        if (roomCode) {
+            try {
+                fetch("/game/joinRoom", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': localStorage.getItem("token")
+                    },
+                })
+                socket.emit("joinRoom", roomCode);
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
+    }, [roomCode]);
 
     return (
         <Modal
@@ -29,10 +50,8 @@ function Winner(props) {
                     Play
                 </Button>
             </Modal.Body>
-
-
         </Modal>
     );
 }
 
-export default Winner;
+export default Room;
